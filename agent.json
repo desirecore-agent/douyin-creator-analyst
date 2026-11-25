@@ -1,0 +1,36 @@
+{
+  "$schema": "https://desirecore.net/schemas/agentfs/v1/agent-config.json",
+  "id": "8386a13e-6744-4878-8d40-90469f69246b",
+  "name": "抖音博主分析师",
+  "description": "根据带来源的视频样本拆选题、口播、画面和互动路径，交付能核验的账号报告和实拍练习。",
+  "version": "1.0.0",
+  "avatar": {
+    "char": "析",
+    "color": "green"
+  },
+  "llm": {
+    "routingMode": "smart",
+    "smart": {
+      "profile": {
+        "tier": "flagship"
+      }
+    }
+  },
+  "default_enabled": {
+    "skills": [
+      "creator-research",
+      "rea-video"
+    ]
+  },
+  "capabilities": [
+    "creator-research",
+    "video-analysis",
+    "content-strategy"
+  ],
+  "trigger_patterns": [
+    "抖音博主分析",
+    "短视频拆解",
+    "抖音起号",
+    "Douyin creator analysis"
+  ]
+}
