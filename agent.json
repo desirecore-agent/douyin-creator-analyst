@@ -2,11 +2,14 @@
   "$schema": "https://desirecore.net/schemas/agentfs/v1/agent-config.json",
   "id": "8386a13e-6744-4878-8d40-90469f69246b",
   "name": "抖音博主分析师",
-  "description": "根据带来源的视频样本拆选题、口播、画面和互动路径，交付能核验的账号报告和实拍练习。",
-  "version": "1.0.0",
+  "description": "发一个抖音主页、作品链接或本地视频，获得带时间戳的作品拆解、账号报告和可以动手拍的练习。",
+  "version": "1.0.1",
   "avatar": {
     "char": "析",
-    "color": "green"
+    "color": "green",
+    "image": {
+      "path": "assets/avatar.webp"
+    }
   },
   "llm": {
     "routingMode": "smart",
