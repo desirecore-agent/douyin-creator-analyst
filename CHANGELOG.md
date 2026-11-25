@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.0.2] - 2026-11-25
+
+- Show both languages in the market usage guide, with Chinese first.
+
 ## [1.0.1] - 2026-11-25
 
 - Add a portrait avatar to the Agent package.
