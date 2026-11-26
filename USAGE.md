@@ -14,11 +14,11 @@
 
 > 查这个博主最新 10 条公开口播视频。按发布时间排列，比较开头和互动方式，挑 3 条做实拍练习。
 
-也可以用一批作品链接或视频文件开始。需要登录或遇到验证时，可用用户授权的会话，或由用户补充视频原件。显示值缺少指标名时，原样记录卡片数字。
+也可以用一批作品链接或视频文件开始。对你有权保存的单条作品，使用随包的抖音视频下载技能。主页采集需要登录或遇到验证时，可用用户授权的会话，或由用户补充视频原件。显示值缺少指标名时，原样记录卡片数字。
 
 ### 运行环境
 
-两项技能随安装默认启用。第一次分析会通过 uv 准备固定版本的 Rea-Video CLI，需要 Git、FFmpeg、ffprobe 和联网下载依赖。视频分析默认在本地完成。
+三个技能随安装默认启用。第一次分析优先用巨章受管的 uv、Python 3.13 和 FFmpeg 套件，并沿用可用的 Git。联网准备固定版本的 Rea-Video CLI、依赖和识别模型后，视频默认在本地分析。
 
 ## English
 
@@ -36,8 +36,8 @@ Send a creator profile and say which works to cover.
 
 > Review this creator’s latest 10 public talking-head videos. Order them by publish date, compare their openings and audience prompts, and turn three examples into filming exercises.
 
-A list of video links or local files also works. For sign-in and verification, use an authorized browser session or provide the source files. Unlabeled counters are recorded as displayed.
+A list of video links or local files also works. The bundled downloader can save individual works you are allowed to keep. For profile sign-in and verification, use an authorized browser session or provide the source files. Unlabeled counters are recorded as displayed.
 
 ### Local setup
 
-Both Skills are enabled on install. First analysis provisions the pinned Rea-Video CLI through uv. Git, FFmpeg, ffprobe and network access for initial downloads are required. Video analysis runs locally by default.
+All three skills are enabled at install. The Agent prefers DesireCore's managed uv, Python 3.13, and FFmpeg toolkit and uses the available Git. First analysis needs network access to provision the pinned CLI, packages, and recognition models. Video analysis runs locally by default.
