@@ -2,7 +2,7 @@
 name: creator-research
 description: 研究抖音等短视频账号的公开视频或用户提供的作品，核对覆盖和数据口径，用内置 Rea-Video 产出可核验的逐条拆解、起号分析、改写与实拍案例册。
 license: MIT
-compatibility: 需要 DesireCore 命令执行权限。首次运行需要 uv、Git、FFmpeg/ffprobe 及联网下载 Python 3.13、固定版本 Rea-Video 与可选识别模型。浏览抖音使用已获授权的浏览器会话或用户提供的视频。额外视觉或语音服务按授权和服务条款使用，可能产生费用。
+compatibility: 需要 DesireCore 命令执行权限。优先使用巨章受管的 uv、Python 3.13 和 FFmpeg/ffprobe。Git 需要在执行环境中可用。首次分析需联网获取固定版本 Rea-Video、Python 依赖和识别模型。浏览抖音使用已获授权的浏览器会话或用户提供的视频。
 ---
 
 # 短视频博主研究
@@ -12,14 +12,17 @@ compatibility: 需要 DesireCore 命令执行权限。首次运行需要 uv、Gi
 - 区分账号全量、最近 N 条、指定作品和单条试跑。只根据已核实的范围承诺覆盖。仅有昵称时核对主页标识、账号自述或分享链接，避免同名误认。
 - 用用户提供的主页、作品分享、本地视频或已获授权的浏览能力获取素材。在当前可正常访问的界面查看公开作品和标注。出现登录、验证码、异常或限速时记录页面状态，暂停受影响的获取，继续处理已取得内容。需要用户协助时列明缺失作品及可用替代输入。
 - 用作品 ID 去重，分别记录置顶、共创、图文和视频。用核实可用的发布时间判断“最新”，无法确认就留空并说明。账号时间线选择可复核证据，避免从一条视频推断私人生活。
+- 用户要求下载且素材在其保存权限内时，读取随包的 `douyin-video-download` 技能。用受管 Python 执行技能脚本，逐条处理已核实的分享链接或视频 ID。主页的作者、发布时间和作品覆盖仍以浏览器证据为准。取得的视频先用 FFprobe 核对，再交给 Rea-Video。下载失败时保留失败项，请用户补原件或继续分析已经拿到的素材。平台要求登录或验证时，保留原授权流程。
 
 ## 确认本地 CLI
 
-使用随包启用的 rea-video 技能了解产物。执行以下固定版本前缀时，uv 会准备隔离的 CLI 环境并复用缓存。先检查 `uv --version`、`git --version`、`ffmpeg -version` 和 `ffprobe -version`，以及默认模型缓存可下载、工作目录可写、空间足够。首次下载 Python、依赖和语音/OCR 模型可能耗时，给用户看到实际进度。命令执行及联网服从当前环境授权。
+使用随包启用的 rea-video 技能了解产物。从当前会话环境的 `Managed runtimes` 获取受管 uv、Python 3.13、FFmpeg 和 FFprobe 的绝对路径。优先用这些路径执行，并把受管 FFmpeg/FFprobe 的目录加入本次命令的 PATH，让 Rea-Video 的子进程使用同一套工具。在相同执行环境检查 `git --version`，通过后沿用现有 Git。受管组件还在准备时，先等应用完成准备。没有受管路径时，核对设备上已有的相应工具并报告实际缺项。
+
+以下命令中的 `UV_BIN` 和 `PYTHON_BIN` 是刚核实的绝对路径。Windows PowerShell 用调用运算符 `& $UV_BIN`，并把 `--python` 参数设为 `$PYTHON_BIN`。uv 使用这个解释器准备隔离的 CLI 环境并复用缓存。检查默认模型缓存可下载、工作目录可写、空间足够。首次下载 CLI、Python 依赖和语音/OCR 模型可能耗时，给用户看到实际进度。命令执行及联网服从当前环境授权。
 
 ```sh
-uv tool run --python 3.13 --from "rea-video[ocr,asr] @ git+https://github.com/JuneYaooo/rea-video.git@a124acd4a02b3a9b72b9e7dedca5d1bfcda2a7b8" rea-video --help
-uv tool run --python 3.13 --from "rea-video[ocr,asr] @ git+https://github.com/JuneYaooo/rea-video.git@a124acd4a02b3a9b72b9e7dedca5d1bfcda2a7b8" rea-video decompose "sample.mp4" -o "analysis/sample" --no-vlm --workers 1
+"$UV_BIN" tool run --python "$PYTHON_BIN" --from "rea-video[ocr,asr] @ git+https://github.com/JuneYaooo/rea-video.git@a124acd4a02b3a9b72b9e7dedca5d1bfcda2a7b8" rea-video --help
+"$UV_BIN" tool run --python "$PYTHON_BIN" --from "rea-video[ocr,asr] @ git+https://github.com/JuneYaooo/rea-video.git@a124acd4a02b3a9b72b9e7dedca5d1bfcda2a7b8" rea-video decompose "sample.mp4" -o "analysis/sample" --no-vlm --workers 1
 ```
 
 按同一前缀运行上游文档里的 `summary`、`review` 等 CLI 子命令。默认本地处理，显式传 `--no-vlm` 覆盖可能已启用的用户偏好，并省略外部复刻选项。核对结果中的实际视觉、OCR、ASR 状态。对外部模型传输素材或产生费用的调用单独确认连接、用途、授权和费用。缺运行依赖时注明缺项，用用户已有的视频拆解、识别稿或截图继续适用的工作；没有分析证据时只做相应范围内的元数据盘点。
